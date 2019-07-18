@@ -1,8 +1,8 @@
 'use strict';
 
 // replace this 👇 with your API key
-const apiKey = 'fa54953a641b4660b4b294dcd93c176c';
-const searchURL = 'https://newsapi.org/v2/everything';
+const apiKey = 'WjWy0yBLjdo7P32FzOZoCKxLDMuw4HImKHnGe0ew';
+const searchURL = 'https://developer.nps.gov/api/v1/parks';
 
 /**
  * Creates a query string from a params object
@@ -22,17 +22,25 @@ function formatQueryParams(params) {
  */
 function getNews(query, maxResults=10) {
   const params = {
-    q: query,
-    language: 'en',
+    stateCode: 'MN',
+    api_key: apiKey,
+    limit: 3
   };
   const queryString = formatQueryParams(params);
   const url = searchURL + '?' + queryString;
+  console.log(url);
 
   const options = {
-    headers: new Headers({'X-Api-Key': apiKey})
+    headers: new Headers(
+      {
+        'stateCode': 'MN',
+        'api_key': apiKey,
+        'limit': 3
+
+      })
   };
 
-  fetch(url, options)
+  fetch(url)
     .then(response => {
       if (response.ok) {
         return response.json();
@@ -57,18 +65,16 @@ function displayResults(responseJson, maxResults) {
   // if there are previous results, remove them
   $('#results-list').empty();
   // iterate through the articles array, stopping at the max number of results
-  responseJson.articles.forEach(article => {
+  responseJson.data.forEach(park => {
     // For each object in the articles array:
     // Add a list item to the results list with 
     // the article title, source, author,
     // description, and image
+    console.log(park.fullName);
     $('#results-list').append(
       `
-        <li><h3><a href="${article.url}">${article.title}</a></h3>
-        <p>${article.source.name}</p>
-        <p>By ${article.author}</p>
-        <p>${article.description}</p>
-        <img src='${article.urlToImage}'>
+        <li>
+        <h3><a href="${park.directionsUrl}">${park.fullName}</a></h3>
         </li>
       `
     );
