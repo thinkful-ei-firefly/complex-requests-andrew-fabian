@@ -3,6 +3,7 @@
 // replace this 👇 with your API key
 const apiKey = 'WjWy0yBLjdo7P32FzOZoCKxLDMuw4HImKHnGe0ew';
 const searchURL = 'https://developer.nps.gov/api/v1/parks';
+const googleAPIKey = 'AIzaSyBpaFk2Wm3PkMCNrL3Etjwq_M4aZ_W00OA';
 
 /**
  * Creates a query string from a params object
@@ -62,11 +63,13 @@ function displayResults(responseJson, maxResults) {
     // the article title, source, author,
     // description, and image
     console.log(park.fullName);
+    //Google API for address, take inputs of Lat and Long. Reverse geolocation// let parkAddress = ;
     $('#results-list').append(
       `
         <li>
         <h3>${park.fullName}</h3>
         <p>${park.description}</p>
+        <p>${parkAddress}</p>
         <p><a href="${park.directionsUrl}">${park.directionsUrl}</a></p>
         </li>
       `
