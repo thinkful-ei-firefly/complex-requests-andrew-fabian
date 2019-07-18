@@ -20,25 +20,16 @@ function formatQueryParams(params) {
  * @param {string} query 
  * @param {number} maxResults 
  */
-function getNews(query, maxResults=10) {
+function getNews(inputStateCode, maxResults) {
   const params = {
-    stateCode: 'MN',
+    stateCode: inputStateCode,
     api_key: apiKey,
-    limit: 3
+    limit: maxResults
   };
   const queryString = formatQueryParams(params);
+  console.log(`queryString is ${queryString}`)
   const url = searchURL + '?' + queryString;
   console.log(url);
-
-  const options = {
-    headers: new Headers(
-      {
-        'stateCode': 'MN',
-        'api_key': apiKey,
-        'limit': 3
-
-      })
-  };
 
   fetch(url)
     .then(response => {
@@ -89,9 +80,10 @@ function displayResults(responseJson, maxResults) {
 function watchForm() {
   $('form').submit(event => {
     event.preventDefault();
-    const searchTerm = $('#js-search-term').val();
+    const stateCode = $('#js-state-code').val();
     const maxResults = $('#js-max-results').val();
-    getNews(searchTerm, maxResults);
+    console.log(`statecode is ${stateCode}`);
+    getNews(stateCode, maxResults);
   });
 }
 
