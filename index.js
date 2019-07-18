@@ -69,7 +69,6 @@ function displayResults(responseJson, maxResults) {
         <li>
         <h3>${park.fullName}</h3>
         <p>${park.description}</p>
-        <p>${parkAddress}</p>
         <p><a href="${park.directionsUrl}">${park.directionsUrl}</a></p>
         </li>
       `
