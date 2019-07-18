@@ -65,7 +65,9 @@ function displayResults(responseJson, maxResults) {
     $('#results-list').append(
       `
         <li>
-        <h3><a href="${park.directionsUrl}">${park.fullName}</a></h3>
+        <h3>${park.fullName}</h3>
+        <p>${park.description}</p>
+        <p><a href="${park.directionsUrl}">${park.directionsUrl}</a></p>
         </li>
       `
     );
